@@ -1,14 +1,30 @@
 
-class Grass {
-    constructor(x, y) {
+class LivingCreature {
+    constructor(x, y, index){
         this.x = x;
         this.y = y;
-
         this.multiply = 0;
-        this.directions = [];
-
+        this.index = index;
+        
+ 
     }
+    chooseCell(ch) {
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
+                if (matrix[y][x] == ch) {
+                    found.push(this.directions[i]);
+                }
+            }   
+        }
+        return found;
+    }
+}
 
+class Grass extends LivingCreature {
+    
     newDirections() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -25,17 +41,7 @@ class Grass {
 
     getDirections(t) {
         this.newDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == t) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+    return super.chooseCell(t)
     }
 
 
@@ -61,14 +67,11 @@ class Grass {
     }
 }
 
-class Eatgrass {
+class Eatgrass extends LivingCreature{
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 0;
+        super(x,y);
         this.energy = 3;
-        this.directions = [];
-    }
+            }
 
     //շրջապատի հետազոտության մատրիցը
     newDirections() {
@@ -88,17 +91,7 @@ class Eatgrass {
     //կերպարը որոշվում է t արգումենտով
     getDirections(t) {
         this.newDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == t) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(t)
     }
 
 
@@ -217,11 +210,9 @@ class Eatgrass {
 
 class Predator {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 0;
+        super(x,y);
         this.energy = 3;
-        this.directions = [];
+        
     }
 
     //շրջապատի հետազոտության մատրիցը
@@ -239,17 +230,7 @@ class Predator {
     }
     getDirections(t) {
         this.newDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == t) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(t)
     }
     move() {
         //որոնում է դատարկ տարածքներ
@@ -356,12 +337,9 @@ class Predator {
 
 class Angrystranger {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 0;
+        super(x,y)
         this.energy = 2;
-        this.directions = [];
-    }
+            }
     newDirections() {
         this.directions = [
             // [this.x - 1, this.y - 1],
@@ -376,17 +354,7 @@ class Angrystranger {
     }
     getDirections(t) {
         this.newDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == t) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(t)
     }
     move() {
 
@@ -504,11 +472,8 @@ class Angrystranger {
 }
 class DoubleAngrystranger {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 0;
+        super(x,y)
         this.energy = 2;
-        this.directions = [];
         this.directions1 = [];
     }
     newDirections() {
@@ -533,17 +498,7 @@ class DoubleAngrystranger {
     }
     getDirections(t) {
         this.newDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == t) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(t)
     }
     move() {
         
